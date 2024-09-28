@@ -6,25 +6,19 @@ const app = express();
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME;
 const webRoute = require("./routes/web");
-const mysql = require("mysql2");
+const connection = require("./config/database");
 //config template engine
 configViewEngine(app);
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // khai bao route
 app.use("/", webRoute);
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER, //empty
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATANAME,
-});
 connection.query(
-  "SELECT * FROM Persons p where `City` = 'ho chi minh' ",
+  "SELECT * FROM Persons p where `FirstName` = 'Quan' ",
   function (error, result, fields) {
-    console.log(result);
-    // console.log(fields);
+    // console.log(">>check result:", result);
   }
 );
 // const [results, fields] = connection.query("SELECT * FROM Persons p ");

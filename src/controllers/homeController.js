@@ -1,8 +1,14 @@
+const connection = require("../config/database");
+//
 const getHomepage = (req, res) => {
-  res.send("Hello World! ");
+  return res.render("home.ejs");
 };
 const getHomepagewithImage = (req, res) => {
   res.render("sample.ejs");
 };
+const postCreateNewUser = (req, res) => {
+  console.log(">>>check request", req.body);
+  res.send("Created new user");
+};
 
-module.exports = { getHomepage, getHomepagewithImage };
+module.exports = { getHomepage, getHomepagewithImage, postCreateNewUser };
