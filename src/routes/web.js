@@ -3,14 +3,14 @@ const router = express.Router();
 const {
   getHomepage,
   postCreateNewUser,
-  getDataTable,
   getCreateNewUser,
+  UpdateNewUser,
 } = require("../controllers/homeController");
 
 router.get("/", getHomepage);
 router.get("/create", getCreateNewUser);
 
 router.post("/create-user", postCreateNewUser);
-router.get("/database", getDataTable);
+router.get("/update/:userID", UpdateNewUser);
 
 module.exports = router;
