@@ -56,7 +56,7 @@ const postUpdateUser = async (req, res) => {
     inputCity,
     UserID
   );
-  res.redirect("/success"); // Sửa lỗi gõ sai 'redner' thành 'redirect'
+  res.redirect("/");
 };
 
 const postDeleteUser = async (req, res) => {
