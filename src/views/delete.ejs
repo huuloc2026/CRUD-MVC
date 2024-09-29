@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/create"
-                >Update User</a
+                >Delete User</a
               >
             </li>
           </ul>
@@ -45,42 +45,25 @@
     <div class="d-flex justify-content-center align-items-center min-vh-100">
       <div class="card p-4 shadow-lg" style="max-width: 600px; width: 100%">
         <h3 class="text-center mb-4">Update Person</h3>
-        <form action="/update-user" method="POST">
-          <div class="row">
-            <div class="form-group col-md-6 d-none">
-              <label for="inputLastName">UserID</label>
-              <input
-                type="text"
-                value="<%=userUpdate.PersonID%>"
-                class="form-control"
-                name="UserID"
-                placeholder="ID"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="inputLastName">Last Name</label>
-              <input
-                type="text"
-                value="<%=userUpdate.LastName%>"
-                class="form-control"
-                name="inputLastName"
-                placeholder="Last Name"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="inputFirstName">First Name</label>
-              <input
-                value="<%=userUpdate.FirstName%>"
-                type="text"
-                class="form-control"
-                name="inputFirstName"
-                placeholder="First Name"
-              />
+        <form action="/delete-user" method="POST">
+          <div class="form-group col-md-6 d-none">
+            <label for="inputLastName">UserID</label>
+            <input
+              type="text"
+              value="<%=userUpdate.PersonID%>"
+              class="form-control"
+              name="UserID"
+              placeholder="ID"
+            />
+          </div>
+          <div class="form-group col-md-8">
+            <div class="alert alert-danger">
+              Are you sure delete this user with Email ?
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="inputEmail">Email</label>
+              <label for="inputEmail">Your Email Choose:</label>
               <input
                 type="email"
                 class="form-control"
@@ -89,28 +72,9 @@
                 value="<%=userUpdate.email%>"
               />
             </div>
-            <div class="form-group col-md-6">
-              <label for="inputAddress">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                name="inputAddress"
-                placeholder="Address"
-                value="<%=userUpdate.Address%>"
-              />
-            </div>
           </div>
-          <div class="form-group">
-            <label for="inputCity">City</label>
-            <input
-              type="text"
-              class="form-control"
-              name="inputCity"
-              placeholder="City"
-              value="<%=userUpdate.City%>"
-            />
-          </div>
-          <button type="submit" class="btn btn-info my-4 p-2">Update</button>
+
+          <button type="submit" class="btn btn-danger my-4 p-2">Delete</button>
         </form>
       </div>
     </div>
