@@ -15,14 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 // khai bao route
 app.use("/", webRoute);
 
-connection.query(
-  "SELECT * FROM Persons p where `FirstName` = 'Quan' ",
-  function (error, result, fields) {
-    // console.log(">>check result:", result);
-  }
-);
-// const [results, fields] = connection.query("SELECT * FROM Persons p ");
-
 app.listen(port, hostname, () => {
   console.log(`Example app listening at ${hostname} on port ${port}`);
 });
