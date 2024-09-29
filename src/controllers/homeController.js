@@ -6,66 +6,67 @@ const {
   updateUserByID,
   deleteUserbyID,
 } = require("../services/CRUDservice");
-//
+
 const getHomepage = async (req, res) => {
-  let rows = await getAllUsers();
-  return res.render("home.ejs", { listResult: rows });
+  const rows = await getAllUsers();
+  res.render("home.ejs", { listResult: rows });
 };
 
-const getCreateNewUser = (req, res) => {
-  return res.render("create.ejs");
-};
+const getCreateNewUser = (req, res) => res.render("create.ejs");
+
 const postCreateNewUser = async (req, res) => {
-  let lastName = req.body.inputLastName;
-  let firstName = req.body.inputFirstName;
-  let email = req.body.inputEmail;
-  let address = req.body.inputAddress;
-  let city = req.body.inputCity;
+  const { inputLastName, inputFirstName, inputEmail, inputAddress, inputCity } =
+    req.body;
   const syntaxSQL = `INSERT INTO Persons (LastName, email, FirstName, Address, City) VALUES (?, ?, ?, ?, ?)`;
 
   try {
-    const [rows, fields] = await connection.query(syntaxSQL, [
-      lastName,
-      email,
-      firstName,
-      address,
-      city,
+    await connection.query(syntaxSQL, [
+      inputLastName,
+      inputEmail,
+      inputFirstName,
+      inputAddress,
+      inputCity,
     ]);
-
-    return res.redirect("/");
+    res.redirect("/");
   } catch (error) {
     console.error(error);
-    return res.status(500).send("An error occurred");
+    res.status(500).send("An error occurred");
   }
 };
 
 const getUpdateNewUser = async (req, res) => {
-  const userID = req.params.userID;
-  let user = await getUserbyID(userID);
-
-  return res.render("update.ejs", { userUpdate: user });
+  const user = await getUserbyID(req.params.userID);
+  res.render("update.ejs", { userUpdate: user });
 };
+
 const postUpdateUser = async (req, res) => {
-  let lastName = req.body.inputLastName;
-  let firstName = req.body.inputFirstName;
-  let email = req.body.inputEmail;
-  let address = req.body.inputAddress;
-  let city = req.body.inputCity;
-  let userID = req.body.UserID;
-  updateUserByID(lastName, email, firstName, address, city, userID);
-  return res.redner("sucess.ejs");
+  const {
+    inputLastName,
+    inputFirstName,
+    inputEmail,
+    inputAddress,
+    inputCity,
+    UserID,
+  } = req.body;
+  await updateUserByID(
+    inputLastName,
+    inputEmail,
+    inputFirstName,
+    inputAddress,
+    inputCity,
+    UserID
+  );
+  res.redirect("/success"); // Sửa lỗi gõ sai 'redner' thành 'redirect'
 };
+
 const postDeleteUser = async (req, res) => {
-  const userID = req.params.userID;
-  let user = await getUserbyID(userID);
-  return res.render("delete.ejs", { userUpdate: user });
+  const user = await getUserbyID(req.params.userID);
+  res.render("delete.ejs", { userUpdate: user });
 };
+
 const postHandleSubmitDel = async (req, res) => {
-  const userID = req.body.UserID;
-
-  await deleteUserbyID(userID);
-
-  return res.redirect("/");
+  await deleteUserbyID(req.body.UserID);
+  res.redirect("/");
 };
 
 module.exports = {
